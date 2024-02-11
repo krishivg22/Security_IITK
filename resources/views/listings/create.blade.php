@@ -53,7 +53,7 @@ $options=['open'=>'open','closed'=>'closed',];
                                 class="inline-block text-lg mb-2 mr-2"
                                 >Date :</label
                             >
-                            <input type="date" id="date_input" name="date" value="{{old('date')}}">
+                            <input type="date" id="date_input" class="border border-gray-200 rounded" name="date" value="{{old('date')}}">
                             @error('date')
                             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
@@ -64,14 +64,14 @@ $options=['open'=>'open','closed'=>'closed',];
                                 class="inline-block text-lg mb-2 mr-2"
                                 >Time :</label
                             >
-                            <input type="time" id="time_input" name="time" value="{{old('time')}}">
+                            <input type="time" id="time_input" class="border border-gray-200 rounded" name="time" value="{{old('time')}}">
                             @error('time')
                             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror
                         </div>
                         <div class="mb-6">
                             <label class="mr-2 inline-block text-lg mb-2" for="status">Select Status:</label>
-    <select name="status" id="select_field" >
+    <select name="status" id="select_field" class="border border-gray-200 rounded">
         @foreach($options as $value => $label)
             <option value="{{ $value }}" {{ old('status') == $value ? 'selected' : '' }}>{{ $label }}</option>
         @endforeach
@@ -144,30 +144,74 @@ $options=['open'=>'open','closed'=>'closed',];
                                 fileInput.addEventListener("change", function () {
                                     updateFileName();
                                 });
-                        
+                                
+                                
                                 function updateFileName() {
-                                    if (fileInput.files.length > 0) {
+                                    var fileList = fileInput.files;
+                                    if (fileList.length > 0) {
                                         fileError.textContent = "";
-                                        dragAndDrop.innerHTML = "<p>" + fileInput.files.length + " Files selected . </p>";
+                                        dragAndDrop.innerHTML = "";
+                        
+                                        for (var i = 0; i < fileList.length; i++) {
+                                            dragAndDrop.innerHTML += `
+                                                <div class="file-item">
+                                                    <p class="text-sm">${fileList[i].name}</p>
+                                                    <button type="button" class="bg-red-500 text-white text-xs rounded-full py-1 px-2 m-1" onclick="removeFile(${i})"> <i class="fa-solid fa-xmark"></i></button>
+                                                </div>
+                                            `;
+                                        }
                                     } else {
-                                        dragAndDrop.innerHTML = "<p>Drag and drop your file here or click to browse</p>";
+                                        dragAndDrop.innerHTML = "<p>Drag and drop your file here</p>";
                                     }
                                 }
+
+                                
+                               // Function to remove a file
+window.removeFile= function (index) {
+    var fileList = fileInput.files;
+    var newFileList = Array.from(fileList);
+    newFileList.splice(index, 1);
+
+    // Create a new DataTransfer object
+    var newDataTransfer = new DataTransfer();
+
+    // Add the remaining files to the new DataTransfer object
+    newFileList.forEach(function (file) {
+        newDataTransfer.items.add(file);
+    });
+
+    // Update the files property of the existing input with the new DataTransfer object
+    fileInput.files = newDataTransfer.files;
+
+    // Update the displayed file names
+    updateFileName();
+};
+
                             });
                         </script>
                         
                         <style>
                             .drag-and-drop {
                                 border: 2px dashed #ccc;
-                                padding:50px;
+                                padding: 50px;
                                 text-align: center;
-                                cursor: pointer;
+                        
                             }
                         
                             .drag-over {
                                 background-color: #f0f8ff; /* Light blue background when dragging over */
                             }
+                        
+                            .file-item {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 5px;
+                            }
+                        
+                            
                         </style>
+                        
                             @error('attachment')
                             <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                             @enderror

@@ -1,6 +1,6 @@
  <!-- Search -->
- <div class="p-4 flex w-full items-center justify-between">
- <div class="relative w-1/2 border-2 border-gray-100 rounded-lg">
+ <div class="p-4 flex w-full items-center justify-between lg:flex-row flex-col gap-2">
+ <div class="relative lg:w-1/2 w-full border-2 border-gray-100 rounded-lg">
  <form action="">
         <div class="absolute top-4 left-3">
             <i
@@ -11,7 +11,7 @@
             type="text"
             name="search"
             class="h-14 w-full pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none"
-            placeholder="Search IITK Reports..."
+            placeholder="Search IITK Reports using filters: title:__ ,status:__ ,date:__ ,etc."
         />
         <div class="absolute top-2 right-2">
             <button
@@ -24,7 +24,7 @@
 </form>
 </div>
 
-<form action="/sort" method="get" class="flex items-center justify-between w-1/3">
+<form action="/sort" method="get" class="flex items-center justify-between lg:w-1/3 w-full">
     <div class="bg-gray-200 p-2 text-sm rounded-lg h-10 flex items-center gap-1">
     <label for="sortD">Sort by Date: </label>
     <select name="sortD" id="sortD" onchange="this.form.submit()">

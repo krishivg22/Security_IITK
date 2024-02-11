@@ -29,15 +29,49 @@
             fileInput.addEventListener("change", function () {
                 updateFileName();
             });
-    
+            
+            
             function updateFileName() {
-                if (fileInput.files.length > 0) {
+                var fileList = fileInput.files;
+                if (fileList.length > 0) {
                     fileError.textContent = "";
-                    dragAndDrop.innerHTML = "<p>" + fileInput.files.length + " Files selected . </p>";
+                    dragAndDrop.innerHTML = "";
+    
+                    for (var i = 0; i < fileList.length; i++) {
+                        dragAndDrop.innerHTML += `
+                            <div class="file-item">
+                                <p class="text-sm">${fileList[i].name}</p>
+                                <button type="button" class="bg-red-500 text-white text-xs rounded-full py-1 px-2 m-1" onclick="removeFile(${i})"> <i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                        `;
+                    }
                 } else {
-                    dragAndDrop.innerHTML = "<p>Drag and drop your file here or click to browse</p>";
+                    dragAndDrop.innerHTML = "<p>Drag and drop your file here</p>";
                 }
             }
+
+            
+           // Function to remove a file
+window.removeFile= function (index) {
+var fileList = fileInput.files;
+var newFileList = Array.from(fileList);
+newFileList.splice(index, 1);
+
+// Create a new DataTransfer object
+var newDataTransfer = new DataTransfer();
+
+// Add the remaining files to the new DataTransfer object
+newFileList.forEach(function (file) {
+newDataTransfer.items.add(file);
+});
+
+// Update the files property of the existing input with the new DataTransfer object
+fileInput.files = newDataTransfer.files;
+
+// Update the displayed file names
+updateFileName();
+};
+
         });
     </script>
     
@@ -51,6 +85,12 @@
         .drag-over {
             background-color: #f0f8ff; /* Light blue background when dragging over */
         }
+        .file-item {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 5px;
+                            }
     </style>
 <div class="mx-4 mt-10">
 <x-card class="w-11/12 mx-auto">

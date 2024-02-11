@@ -11,8 +11,8 @@ class="flex flex-col gap-2 mx-4"      {{----}}
         <div class="ml-4 flex col-span-2 items-center justify-start h-full font-semibold text-gray-600">
         Tags 
         </div>
-        <div class="ml-2 flex items-center justify-start gap-1 text-base font-semibold text-gray-600 h-full hover:text-gray-400">
-            <a href="/date" >Date</a>
+        <div class="ml-2 flex items-center justify-start gap-1 text-base font-semibold text-gray-600 h-full ">
+            Date
        </div>
        <div class="ml-2 flex items-center text-base text-gray-600 font-semibold h-full">
         Reporter

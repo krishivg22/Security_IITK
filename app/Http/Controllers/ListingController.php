@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
+use ZipArchive;
 use PDF;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -40,6 +41,7 @@ class ListingController extends Controller
         return view('listings.create');
     }
     public function download(listing $listing){
+       
         $html = View::make('listings.pdf', compact('listing'))->render();
         // $response = Response::make($html);
 
@@ -62,7 +64,40 @@ class ListingController extends Controller
         $dompdf->render();
 
         // Stream the file to the browser with a specific filename
-        return $dompdf->stream('document.pdf');
+        // return $dompdf->stream('document.pdf');
+        $pdfContent = $dompdf->output();
+        $zip = new ZipArchive;
+        $zipFileName = 'downloaded_files.zip';
+    
+        if ($zip->open($zipFileName, ZipArchive::CREATE) === true) {
+            // Add the PDF to the zip file
+            $zip->addFromString('document.pdf', $pdfContent);
+    
+            // Add other files from the public folder to the zip file
+            if($listing->attachment !=NULL){
+            if(strpos($listing->attachment, ',') !== false){
+            $attachments= explode(',',$listing->attachment); 
+            }
+            else{
+                $attachments=[$listing->attachment]  ;
+            }
+        
+            $filesFromPublic = [];
+            foreach($attachments as $attachment){
+                $filesFromPublic[]='storage/'.$attachment;
+            }
+    
+            foreach ($filesFromPublic as $file) {
+                $fileContent = file_get_contents($file);
+                $zip->addFromString(basename($file), $fileContent);
+            }
+        }
+            $zip->close();
+        }
+    
+        // Stream the zip file to the browser with a specific filename
+        return response()->download($zipFileName)->deleteFileAfterSend();
+    
     }
     public function store(Request $request){
 $formFields = $request->validate([

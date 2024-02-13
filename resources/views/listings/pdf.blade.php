@@ -49,8 +49,6 @@
                     </p>
     
                     <li><h3 class="text-lg font-semibold">Reported by {{$listing->reporter}}</h3></li>
-                    <li><h3>Attachments</h3></li>
-                    <p>See from Website.</p>
             </ul>
         </div>
     </x-card>

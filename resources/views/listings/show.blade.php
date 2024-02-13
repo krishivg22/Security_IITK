@@ -41,7 +41,7 @@
                         dragAndDrop.innerHTML += `
                             <div class="file-item">
                                 <p class="text-sm">${fileList[i].name}</p>
-                                <button type="button" class="bg-red-500 text-white text-xs rounded-full py-1 px-2 m-1" onclick="removeFile(${i})"> <i class="fa-solid fa-xmark"></i></button>
+                                <button type="button" class="bg-red-500 text-white text-xs rounded-full py-1 px-2 m-1 hover:bg-red-600" onclick="removeFile(${i})"> <i class="fa-solid fa-xmark"></i></button>
                             </div>
                         `;
                     }

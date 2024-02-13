@@ -35,6 +35,15 @@
                 document.getElementById('deleteModal').style.display = 'none';
                 document.getElementById('overlay').style.backgroundColor = 'rgba(0, 0, 0, 0)'; 
             }
+            function openModalI() {
+                document.getElementById('infoModal').style.display = 'block';
+                document.getElementById('overlay').style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; 
+            }
+        
+            function closeModalI() {
+                document.getElementById('infoModal').style.display = 'none';
+                document.getElementById('overlay').style.backgroundColor = 'rgba(0, 0, 0, 0)'; 
+            }
         </script>
         <script>
             tailwind.config = {

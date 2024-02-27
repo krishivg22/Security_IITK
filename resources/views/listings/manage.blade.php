@@ -3,7 +3,7 @@
         <x-card class='p-10'>
             <header>
                 <h1
-                    class="text-3xl text-center font-bold my-6 uppercase"
+                    class="text-2xl text-center font-bold my-6 uppercase"
                 >
                     Manage Reports
                 </h1>
@@ -15,14 +15,14 @@
                     @foreach($listings as $listing)
                     <tr class="border-gray-300">
                         <td
-                            class="px-4 py-8 capitalize border-t border-b border-gray-300 text-xl font-semibold"
+                            class="px-4 py-8 capitalize border-t border-b border-gray-300 text-lg font-semibold"
                         >
                             <a href="/listings/{{$listing->id}}">
                                 {{$listing->title}}
                             </a>
                         </td>
                         <td
-                            class="px-4 py-8 border-t border-b border-gray-300 text-base"
+                            class="px-4 py-8 border-t border-b border-gray-300 text-sm"
                         >
                         <div class="flex justify-center items-center ">
                         <div class="inline rounded-lg bg-black text-white py-2 px-4 hover:text-gray-400">
@@ -34,7 +34,7 @@
                         </td>
                         <div id="overlay" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-0 pointer-events-none z-40"></div>  
                         <td
-                            class="px-4 py-8 border-t border-b border-gray-300 text-base"
+                            class="px-4 py-8 border-t border-b border-gray-300 text-sm"
                         >
                         <div class="flex justify-center items-center ">
                             <button type="button" onclick="openModal1()" class="rounded-lg bg-red-500 text-white py-2 px-4 hover:bg-red-600"><i class="fa-solid fa-trash"></i>

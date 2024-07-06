@@ -16,7 +16,7 @@
                             </label>
                             <input
                                 type="text"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border border-gray-300 rounded p-2 w-full"
                                 name="name"
                                 value="{{old('name')}}"
                             />
@@ -31,7 +31,7 @@
                             >
                             <input
                                 type="email"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border border-gray-300 rounded p-2 w-full"
                                 name="email"
                                 value="{{old('email')}}"
                             />
@@ -50,7 +50,7 @@
                             </label>
                             <input
                                 type="password"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border border-gray-300 rounded p-2 w-full"
                                 name="password"
                                 
                             />
@@ -68,7 +68,7 @@
                             </label>
                             <input
                                 type="password"
-                                class="border border-gray-200 rounded p-2 w-full"
+                                class="border border-gray-300 rounded p-2 w-full"
                                 name="password_confirmation"
                             />
                             @error('password_confirmation')
@@ -79,7 +79,7 @@
                         <div class="mb-6">
                             <button
                                 type="submit"
-                                class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
+                                class="in bg-red-500 text-white rounded py-2 px-4 "
                             >
                                 Sign Up
                             </button>
@@ -88,7 +88,7 @@
                         <div class="mt-8">
                             <p>
                                 Already have an account?
-                                <a href="/login" class="text-laravel"
+                                <a href="/login" class="text-blue-500 hover:underline hover:underline-offset-4"
                                     >Login</a
                                 >
                             </p>

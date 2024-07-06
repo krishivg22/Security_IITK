@@ -15,7 +15,7 @@ use Dompdf\Options;
 class ListingController extends Controller
 {
     #to get all Listings
-    public function index(){
+    public function index(){  #You can pass in Request $request as formal param., but we can directly access the request query by request().
         return view('listings.index',['listings'=> listing::latest()->filter(request(['tag','search']))->paginate(5)]);    //['listings'=> listing::all()]This was when there was no tag filter. 
     }                                                                     #we can use paginate instead of get...to get pagination. simplePaginate gives next and previous.
 
@@ -112,7 +112,7 @@ $formFields = $request->validate([
 if($request->hasFile('attachment')) {
     $attachments="";
     foreach ($request->file('attachment') as $file) {
-        // Store each file in the 'attachments' directory within the 'public' disk
+        // Store each file in the 'attachments' directory within the 'public' in storage,app.
         $filePath = $file->store('attachments', 'public');
         // Add the file path to the array
         $attachments = $attachments.$filePath.",";

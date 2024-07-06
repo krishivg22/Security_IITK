@@ -23,7 +23,7 @@ class="flex flex-col gap-2 mx-4"      {{----}}
 </div>
 </div>              
 @foreach($listings as $listing)
- <x-listing-card :listing="$listing" />    {{--This is self closing--}}   {{--Colon is for variable passing--}}
+ <x-listing-card :listing="$listing" />    {{--This is self closing--}}   {{--Colon is for variable passing,jo prop mention kiya usme value dedi--}}
 @endforeach
  @if(count($listings)==0)         {{--  Conditional (cana also have else in it--}}
 <p>No listings found</p>
@@ -36,8 +36,7 @@ class="flex flex-col gap-2 mx-4"      {{----}}
     Now pagination--}}
 <div class="mt-6 p-4">{{$listings->links()}}</div>                              {{--diff pages can be accessed by passing queries page=2--}}
 @else
-
-<p class="text-2xl text-center mt-10 mb-0 text-blue-500 ">This portal is for security purposes of IITK.</p>
+<p class="text-2xl text-center mt-10 mb-0 text-blue-500 "><span class="auto-type"></span></p>
 
 @endauth
 </x-layout>

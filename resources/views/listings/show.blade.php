@@ -73,6 +73,17 @@ updateFileName();
 };
 
         });
+        $(document).ready(function(){
+            $(".dropa").on("click",function(){
+            $(".careta").toggleClass("caret-rotate");
+             $(".drop1").toggleClass("hidden");
+        });
+        $(".dropb").on("click",function(){
+            $(".caretb").toggleClass("caret-rotate");
+             $(".drop2").toggleClass("hidden");
+        });
+        });
+       
     </script>
     
     <style>
@@ -91,7 +102,48 @@ updateFileName();
                                 align-items: center;
                                 margin-bottom: 5px;
                             }
+        .caret{
+            width: 0;
+height: 0;
+border-left: 5px solid transparent;
+border-right: 5px solid transparent;
+border-top: 6px solid black;
+transition: 0.3s;
+        }
+        .caret-rotate {
+transform: rotate(180deg);
+}
     </style>
+                <div id="overlay" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-0 pointer-events-none z-40"></div>       
+                <!-- Modal for choosing files -->
+                <div id="attachmentModal" class="hidden fixed rounded-md  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-2/3 p-5 bg-white text-black border-4 border-gray-500 z-50">
+                    <!-- File input field -->
+                    <div class="h-full w-full flex flex-col items-center justify-center">
+                    <form action="/listings/attach/{{$listing->id}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="h-full flex flex-col gap-5 justify-between items-center">
+                        <label for="attachment" class="inline-block font-bold text-lg mb-2">
+                            Attachments
+                        </label>
+                        <input
+                            type="file"
+                            class="border border-gray-200 rounded p-2 w-full"
+                            name="attachment[]"
+                            id="logoInput"
+                            multiple />
+                            
+                        <div class="hidden lg:block border-2 border-dashed md:border-gray-300 p-10 text-center cursor-pointer" id="dragAndDrop">
+                            <p>Drag and drop your file here</p>
+                        </div>
+                        <p id="fileError" class="text-red-500 text-xs mt-1"></p>
+                    
+                        <button type="submit" class="block py-1 px-2 rounded-full text-lg text-black bg-gray-100 hover:bg-gray-400"><i class="fa-solid fa-upload"></i></button>
+                    </div>
+                    </form>
+                    <button onclick="closeModal()" class="mt-3 py-1 px-3 rounded-full text-lg bg-red-500 hover:bg-red-600"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                </div>
 <div class="mx-4 mt-10">
 <x-card class="w-11/12 mx-auto">
     <div
@@ -134,23 +186,27 @@ updateFileName();
         </div>
     </div>
     </div>
-        <div class="border border-gray-200 w-full mb-6"></div>
-        <div>
-            <h3 class="text-2xl font-bold mb-4">
-                Description
-            </h3>
-            <div class="space-y-10">
-                <p class="text-lg text-justify">
+        <div class="border border-gray-400 w-full mb-6"></div>
+        <div class="w-full">
+            <div class=" bg-gray-300 p-0.5 mb-2 dropa">
+                <div class="text-xl font-bold my-2 flex justify-center items-center">
+                    <span class="ml-3 mr-auto">Description</span>
+                     <div class="careta caret ml-auto mr-3"></div>
+                 </div>
+                <p class="hidden text-base text-justify drop1 mx-3">
                     {{$listing->description}}
                 </p>
-
-                <h3 class="text-lg font-semibold">Reported by {{$listing->reporter}}</h3>
-                <h3 class="text-xl font-bold mb-4">
-                    Attachments
-                </h3>
-                <ul class="flex items-center justify-center gap-5">
+            </div>
+             <div class=" bg-gray-300 p-0.5 mb-6 dropb">
+                <div class="text-xl font-bold my-2 flex justify-center items-center">
+                   <span class="ml-3 mr-auto">Attachments</span>
+                    <div class="caretb caret ml-auto mr-3"></div>
+                </div>
+                
+                <div class="hidden drop2">
+                <ul class="flex items-center justify-center gap-5 mb-1">
                     @if($listing->attachment ==NULL)
-                    <li class='text-lg'>No Attachments found</li>
+                    <li class='text-base'>No Attachments found</li>
                     @else
                     @php
                     if(strpos($listing->attachment, ',') !== false){
@@ -163,9 +219,9 @@ updateFileName();
                     
                     @endphp
                     @foreach($attachments as $attachment)
-                    <button class="text-lg text-blue-500 hover:text-blue-700">
-                    <li><a href="{{asset('storage/'.$attachment)}}">Attachment {{$i}}</a></li>
-                </button>
+                    <button class="text-base text-blue-500 hover:text-blue-700">
+                    <li><a href={{'/storage/attachments/'.$attachment}}>Attachment {{$i}}</a></li>
+                </button>                  {{--whenever we write asset,w emean we are going to acccess something in public folder.--}}
                     @php
                     $i=$i+1;
                     @endphp
@@ -174,44 +230,15 @@ updateFileName();
     
                 </ul>
                
-            </div>
+            
             @unless($listing->user_id != auth()->id())
-            <button type="button" onclick="openModal()" class="mt-3 py-1 px-2 rounded-lg  border border-solid border-gray-400 text-black hover:bg-gray-400">
+            <button type="button" onclick="openModal()" class="mt-3 mb-1 py-1 px-2 rounded-lg  border border-solid border-gray-400 text-black hover:bg-gray-400">
                 <i class="fa-solid fa-file-circle-plus"></i> Attach Files
             </button>
             @endunless
-            <div id="overlay" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-0 pointer-events-none z-40"></div>       
-<!-- Modal for choosing files -->
-<div id="attachmentModal" class="hidden fixed rounded-md  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-2/3 p-5 bg-white text-black border-4 border-gray-500 z-50">
-    <!-- File input field -->
-    <div class="h-full w-full flex flex-col items-center justify-center">
-    <form action="/listings/attach/{{$listing->id}}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="h-full flex flex-col gap-5 justify-between items-center">
-        <label for="attachment" class="inline-block font-bold text-lg mb-2">
-            Attachments
-        </label>
-        <input
-            type="file"
-            class="border border-gray-200 rounded p-2 w-full"
-            name="attachment[]"
-            id="logoInput"
-            multiple />
-            
-        <div class="hidden lg:block border-2 border-dashed md:border-gray-300 p-10 text-center cursor-pointer" id="dragAndDrop">
-            <p>Drag and drop your file here</p>
-        </div>
-        <p id="fileError" class="text-red-500 text-xs mt-1"></p>
-    
-        <button type="submit" class="block py-1 px-2 rounded-full text-lg text-black bg-gray-100 hover:bg-gray-400"><i class="fa-solid fa-upload"></i></button>
-    </div>
-    </form>
-    <button onclick="closeModal()" class="mt-3 py-1 px-3 rounded-full text-lg bg-red-500 hover:bg-red-600"><i class="fa-solid fa-xmark"></i></button>
-</div>
-</div>
-
-
+                </div>
+            </div>   
+                <h3 class="text-lg font-semibold">Reported by {{$listing->reporter}}</h3>
         </div>
     </div>
 </x-card>

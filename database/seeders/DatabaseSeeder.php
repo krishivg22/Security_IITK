@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //\App\Models\User::factory(5)->create();   //factory ki madad se dummy users create hue       // php artisan db:seed   to run this seeder(creates 5 dummy users)           (migrate refresh krne se ye seeding hat jayegi)
-          $user1=User::factory()->create(['name'=>'John','email'=>'john@gmail.com'])   ;                                                 // refresh --seed    if you want to refresh without letting the seeding go.           WE CAN create a factory like this for listing as well.(make:factory Listingfactory)
-         listing::factory(15)->create(['user_id'=> $user1->id ]);
+          $user1=User::factory()->create(['name'=>'John','email'=>'john@gmail.com'])   ; #Specifically, the method will look for a factory in the Database\Factories namespace that has a class name matching the model name and is suffixed with Factory                                                 // refresh --seed    if you want to refresh without letting the seeding go.           WE CAN create a factory like this for listing as well.(make:factory Listingfactory)
+         listing::factory(15)->create(['user_id'=> $user1->id ]);  #or poora create marna ho to listing::create([]);
     }
 }
 

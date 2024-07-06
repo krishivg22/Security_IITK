@@ -1,4 +1,4 @@
-<div {{$attributes->merge(['class'=>'bg-gray-50 border border-gray-200 rounded p-6'])}}>
+<div {{$attributes->merge(['class'=>'bg-gray-100 border border-gray-300 rounded p-6'])}}>
     {{$slot}}
 </div>
                            {{--ab x-card me koi bhi class extra daalenge to apne aap merge ho jayegi--}}

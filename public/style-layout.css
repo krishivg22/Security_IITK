@@ -1,0 +1,69 @@
+@keyframes gradient-animation {
+    0% {
+      background-position: 25% 50%;
+    }
+    50% {
+      background-position: 75% 50%;
+    }
+    100% {
+      background-position: 25% 50%;
+    }
+  }
+  
+  .bg-gradient-animated {
+    background: radial-gradient(circle, #272829, white);
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
+  }
+  .hidd {
+              opacity: 0;
+              transition: opacity 0.5s ease-in-out; /* Smooth opacity transition */
+          }
+          *, *::before, *::after {
+  box-sizing: border-box;  
+          } 
+          .rl{
+              --accent-colour:#595260;
+          }   
+          .rl::before {
+  content: '';
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: 0;
+  height: 2.5px;
+  background-color: var(--accent-colour);
+  transition: transform 300ms ease-in-out;
+  transform: scaleX(0);
+  }
+  .rl:hover::before,
+  .rl:focus::before {
+  transform: scaleX(1);
+  }
+  .in:hover
+  {
+  animation: rotate 0.7s ease-in-out both;
+  }
+  @keyframes rotate
+  {
+  0%
+  {
+  transform: rotate(0deg) translate3d(0,0,0);
+  }
+  25%
+  {
+  transform: rotate(3deg) translate3d(0,0,0);
+  }
+  50%
+  {
+  transform: rotate(-3deg) translate3d(0,0,0);
+  }
+  75%
+  {
+  transform: rotate(1deg) translate3d(0,0,0);
+  }
+  100%
+  {
+  transform: rotate(0deg) translate3d(0,0,0);
+  }
+  } 

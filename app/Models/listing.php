@@ -9,10 +9,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class listing extends Model    #iss model me saare wo methods hai jo hume chahiye honge
 {
     use HasFactory;
-    // protected $fillable=['title','tags','description','location','email','website','company'];  #All these properties are filllable...but instead you can unguard the model in App service provider.
+    // protected $fillable=['title','tags','description','location','email','website','company'];  #All these properties are filllable in the database...but instead you can unguard the model in App service provider.
     public function scopefiLteR($query, array $filters){       #scopefiLteR  Naam ye hi rkhna padega capital/small kuch bhi
         if($filters['tag'] ?? FALSE){
-            $query->where('tags','like','%'.$filters['tag'].'%');                                 #SQL like query
+            $tag=$filters['tag'];
+            $query->where('tags', 'like', '%,' . $tag . ',%')
+            ->orWhere('tags', 'like', $tag . ',%')
+            ->orWhere('tags', 'like', '%,' . $tag)
+            ->orWhere('tags', '=', $tag);                                 #SQL like query: searches in tags column,and filters those listings which have this tag in it. Returns final filtered list at function end.'%' represent aage piche kuch bhi hoga.
         }                   #The ?? operator is the null coalescing operator, introduced in PHP 7. It returns the value of its left-hand operand if it exists and is not null, otherwise, it returns the right-hand operand.
         if($filters['search'] ?? FALSE){
             $titlePosition = strpos($filters['search'], 'title');
@@ -58,7 +62,7 @@ $query->where('reporter','like','%'.$searchTerm.'%') ;
             }
             if($k==0){
                 $query->where('title','like','%'.$filters['search'].'%')
-                ->orWhere('tags','like','%'.$filters['search'].'%') 
+                ->orWhere('tags','like','%'.$filters['search'].'%') #teeno me jo mile sbka union le liya jayega.
                 ->orWhere('status','like','%'.$filters['search'].'%');
             }
         } 

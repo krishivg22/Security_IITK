@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListingController;
-use App\Models\Listing;      #Model ko iss file me le aaya
+use App\Models\Listing;      #Model ko iss file me le aaya..Now this model can be used in this file's code.
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,18 +58,16 @@ use App\Models\Listing;      #Model ko iss file me le aaya
 // 'listing' => $listing                #We'll pass id only in the link ,but it will auto take the corr. listing...and this method by default displays 404 ,incase of invalid argument.
 // ]);
 // });
-// Route::get('/hello', function() {
-//     return 'hello lelo';
-// });
+
 // We could wrap the string in response and then use html.
 // return response('<h1>hello lelo</h1>',200)
-                // ->header('Content-Type', 'text/plain');    (200 is status code)  (You can have any custom header values(mappings)
+                // ->header('Content-Type', 'text/plain');    (200 is status code)  (You can have any custom header values(mappings) and extra new headers bhi daale jaa skte.
 
-//Example:  for ids.                Route::get('/posts/{id}', function($id) {
+//Example:  for ids.                Route::get('/posts/{iddedo}', function($id) {
                 //     return response( 'Post '. $id);
-                //     })->where('id', '[0-9]+');   //constraint
-     //when pass in query           Route::get('/search', function (Request $request){
-                                    // dd ($request->name .' '.$request->city);
+                //     })->where('id', '[0-9]+');   //constraint     404 aa jayega.
+     //when pass in query(starts with ?)           Route::get('/search', function (Request $request){
+                                    // dd ($request->name .' '.$request->city);            /search?name=brad&city=mum  query ex.
                                     // });
 
 
@@ -92,6 +90,24 @@ Route::post('/users/authenticate',[UserController::class ,'authenticate'])->midd
 Route::get("/listings/{listing}/download",[ListingController::class ,'download']);
 Route::get("/listings/manage",[ListingController::class ,'manage'])->middleware('auth');
 Route::get("/listings/{listing}",[ListingController::class ,'show']);  #Ye last rkhna bec fir wo create ko as an id lene lg jata hai.
+
+Route::get('/storage/attachments/{filename}', function ($filename) {
+    // Check if the user is authenticated
+    if (!auth()->check()) {
+        abort(403, 'Unauthorized');
+    }
+
+    // Get the file from storage
+    $path = storage_path('app/public/' . $filename);
+
+    // Check if the file exists
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    // Return the file as a response
+    return Response::download($path);
+})->where('filename', '.*');
 
 
 // Common Resource Routes:

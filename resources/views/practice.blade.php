@@ -9,7 +9,7 @@
                     
     @foreach($listings as $listing)
     <h2>{{$listing['title']}}</h2>
-    <p>{{$listing ['id']}}</p>
+    <p>{{$listing ['id']}}</p>   eloquent basically gives us a collection, so we can access fields like $listing->title as well.
     <p>{{$listing['description']}}</p>
     @endforeach
      @if(count($listings)==0)         {{--  Conditional (cana also have else in it--}}
@@ -17,5 +17,5 @@
     @endif
     {{-- We have directives here that can be used for loops,conditions(start with @) --}}
     {{-- We have a php directive also, in which you can write php code------->  @php   @endphp 
-        We also have unless directive --}}
+        We also have unless directive @unless,@endunless --}}
                     Well lets start our real project -->

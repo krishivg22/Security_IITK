@@ -12,7 +12,7 @@ $options=['open'=>'open','closed'=>'closed',];
                     </header>
 
                     <form method="POST" action="/listings" enctype="multipart/form-data">        {{--action means idhar form submit hoga--}}
-                        @csrf       {{--koi aur website se humare yaha data store nhi krne dega--}}
+                        @csrf       {{--koi aur website se humare yaha data store nhi krne dega--}}  {{--When a form with enctype="multipart/form-data" is submitted, the browser separates the form data into different parts. Each part is separated by a boundary string. The form fields and file content are sent in a series of parts, making it possible to handle large files and binary data effectively.--}}
 
                         <div class="mb-6">
                             <label for="title" class="inline-block text-lg mb-2"

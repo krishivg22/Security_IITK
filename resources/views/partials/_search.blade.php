@@ -19,10 +19,11 @@
             <div class="h-full border border-gray-200 mr-2"></div>
             <button
                 type="submit"
-                class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600"
+                class="in h-10 w-20 text-white rounded-lg bg-red-500 "
             >
                 Search
-            </button>
+            </button>   
+            {{-- button click krne par get request jayegi search query ke saath..?search=frfrfr --}}
         </div>
 </form>
 </div>

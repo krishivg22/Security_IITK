@@ -1,6 +1,7 @@
 @props(['listing'])
 <!-- Item 1 -->
-<x-card class="relative w-11/12 mx-auto lg:flex lg:flex-row lg:items-center lg:justify-between lg:h-20 hidden">
+<x-card class="transition hover:scale-105 relative w-11/12 mx-auto lg:flex lg:flex-row lg:items-center lg:justify-between lg:h-20"> 
+    {{-- x-card ke andar ki cheeze slot ki jagah aayengi --}}
     <h1 class="text-lg capitalize font-semibold w-1/4 ">
         <a href="/listings/{{$listing->id}}">{{$listing->title}}</a>
     </h1>
